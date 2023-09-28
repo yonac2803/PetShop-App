@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PetShop_WebApp4.Models.Animal>
+@{
+    List<Category> Cats = ViewBag.Cats;
+}
+
+
+<form method="post" action="@Url.Action("Filter", "Catalog")">
+    <select name="selectedCategoryId" class="select-control">
+        <option value="0">All</option>
+        @foreach (var cat in Cats)
+        {
+            <option value="@cat.CategoryId">@cat.CategoryName</option>
+        }
+    </select>
+    <button class="" type="submit">Filter</button>
+</form>
+
+
+
+
+<table class="table table-bordered table-responsive">
+    <tr>
+        <th class="" style="width: 30%;">Image</th>
+        <th class="" style="width: 10%;">Name</th>
+        <th class="" style="width: 50%;">Description</th>
+        <th class="" style="width: 10%;">Number of Comments</th>
+    </tr>
+    @foreach (var animal in Model)
+    {
+        <tr class="animal-row" data-category="@animal.Category.CategoryName">
+            <td class="  tdImage"> <img class="custom-image" src="@animal.ImagePath" /></td>
+            <td class="  tdName">@animal.Name</td>
+            <td class="  tdDescription">@animal.Description</td>
+            <td class="  tdNumOfComments">@animal.Comments!.Count()</td>
+            <td class="  tdButton">
+                <button class="btn btn-primary " onclick="window.location.href =
+                    '@Url.Action("Details", "Catalog", new { animalId = animal.AnimalId })'">Details</button>
+            </td>
+        </tr>
+    }
+</table>

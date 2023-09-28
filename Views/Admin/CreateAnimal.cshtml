@@ -1,0 +1,62 @@
+﻿@model PetShop_WebApp4.Models.Animal
+@{
+    List<Category> Cats = ViewBag.Cats;
+}
+
+<p class="p ">Add a New Animal:</p>
+
+@using (Html.BeginForm("Create", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row justify-content-around ">
+        <div class="col-5">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" placeholder="Animal Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" placeholder="Age" class="form-control" min="1" max="50" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" placeholder="Description" class="form-control" maxlength="500" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageFile, new { @class = "control-label" })
+                <input asp-for="ImageFile" class="form-control" type="file" />
+                @Html.ValidationMessageFor(model => model.ImageFile)
+            </div>
+
+
+            <br />
+
+            <form action="/Catalog/Index" method="post">
+                <div class="centeredDiv">
+                        <fieldset>
+                            Category
+                        <select id="categoryID" name="categoryID" class="select-control">
+                            @foreach (var cat in Cats)
+                            {
+                                <option value="@cat.CategoryId">@cat.CategoryName</option>
+                            }
+                        </select>
+                            <div>
+                                <input class="btn btn-outline-success active" role="button" type="submit" value="Add Animal" />
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

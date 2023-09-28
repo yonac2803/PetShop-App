@@ -1,0 +1,22 @@
+﻿@model PetShop_WebApp4.Models.Animal
+
+
+<h2 class="">Delete Animal</h2>
+
+<p class="table ">Are you sure you want to delete the following animal?</p>
+
+<table class="table ">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Description</td>
+    </tr>
+</table>
+
+<form method="post" action="@Url.Action("DeleteConfirmed", "Admin", new { id = Model.AnimalId })">
+    <input type="submit" value="Delete" class="btn btn-danger " />
+    <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary ">Cancel</a>
+</form>

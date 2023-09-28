@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PetShop_WebApp4.Models.Animal>
+
+
+
+<button class="btn btn-primary " onclick="window.location.href = '@Url.Action("CreateAnimal", "Admin")'">Add Animal</button>
+
+<table class="table table-bordered table-responsive">
+<tr>
+    <th class="" style="width: 30%;">Image</th>
+    <th class="" style="width: 10%;">Name</th>
+    <th class="" style="width: 50%;">Description</th>
+    <th class="" style="width: 10%;">Number of Comments</th>
+</tr>
+@foreach (var animal in Model)
+{
+    <tr class="animal-row" data-category="@animal.Category.CategoryName">
+            <td class="tdImage"> <img class="custom-image" src="@animal.ImagePath" /></td>
+            <td class="tdName ">@animal.Name</td>
+            <td class="tdDescription ">@animal.Description</td>
+            <td class="tdNumOfComments ">@animal.Comments!.Count()</td>
+            <td class="tdActions ">
+                <button class="btn btn-danger " onclick="window.location.href = '@Url.Action("Delete", "Admin", new { id = animal.AnimalId })'">Remove</button>
+                <button class="btn btn-info " onclick="window.location.href = '@Url.Action("EditAnimal", "Admin", new { id = animal.AnimalId })'">Edit</button>
+            </td>
+             
+    </tr> 
+} 
+</table>

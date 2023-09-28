@@ -1,0 +1,51 @@
+﻿@model PetShop_WebApp4.Models.Animal
+
+
+@using (Html.BeginForm("Index", "Catalog", FormMethod.Get))
+{
+    <input class="btn btn-outline-info active mt-lg-3 " type="submit" value="Back to Catalog" />
+}
+
+<p class="p ">Full Details of @Model.Name:</p>
+<table style="table-layout: unset;" class="table table-bordered table-responsive">
+    <tr>
+        <th  style="width: 30%;">Image</th>
+        <th  style="width: 5%;">Name</th>
+        <th  style="width: 5%;">Age</th>
+        <th  style="width: 5%;">Category</th>
+        <th  style="width: 20%;">Description</th>
+    </tr>
+    <tr>
+        <td> <img class="custom-image" src="@Model.ImagePath" /></td>
+        <td>@Model.Name</td>
+        <td>@Model.Age</td>
+        <td>@Model.Category!.CategoryName</td>
+        <td>@Model.Description</td>
+    </tr>
+</table>
+
+@using (Html.BeginForm("AddComment", "Catalog", new { animalId = Model.AnimalId }, FormMethod.Post))
+{
+    @Html.TextBox("comment", null, new { animalId = Model.AnimalId})
+    <input class="btn btn-outline-info active mt-lg-3 " type="submit" value="Add Comment" />
+}
+
+<p class="p">Comments:</p>
+<table style="table-layout: unset;" class="table table-bordered table-responsive ">
+    <tr>
+        <th style="width: 70%;">Text</th>
+        <th style="width: 30%;">Comment Date</th>
+    </tr>
+    @foreach (var comment in Model.Comments!)
+    {
+        <tr>
+            <td>@comment.Text</td>
+            <td>@comment.CommentDate</td>
+        </tr>
+    }
+</table>
+
+
+
+
+
